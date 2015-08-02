@@ -17,6 +17,7 @@ def deleteMatches():
     DB = psycopg2.connect("dbname=tournament")
     c = DB.cursor()
     c.execute("DELETE FROM matches")
+    DB.commit()
     print "match deleted"
     DB.close()
 
@@ -25,6 +26,7 @@ def deletePlayers():
     DB = psycopg2.connect("dbname=tournament")
     c = DB.cursor()
     c.execute("DELETE FROM players")
+    DB.commit()
     print"player deleted"
     DB.close()
 
@@ -34,7 +36,7 @@ def countPlayers():
     c = DB.cursor()
     c.execute("SELECT count (*) from players")
     result = c.fetchall()
-    print "count players is returning: {}".format(result)
+    print "count players is returning: {}".format(result[0][0])
     return result[0][0]
     DB.close()
 
@@ -49,9 +51,8 @@ def registerPlayer(name):
     """
     DB = psycopg2.connect("dbname=tournament")
     c = DB.cursor()
-    c.execute("insert into players values (name)")
+    c.execute("insert into players(pname) values (%s)", ("name",))
     DB.commit()
-    return c.fetchall()
     DB.close()
 
 
