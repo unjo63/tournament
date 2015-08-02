@@ -10,6 +10,11 @@
 CREATE TABLE players ( pname TEXT, id SERIAL );
 CREATE TABLE matches ( p1 SERIAL, p2 SERIAL, winner SERIAL );
 
---CREATE VIEW match_num as select
+CREATE VIEW match_count AS
+  SELECT id, COUNT(players.id) AS num
+    FROM players, matches
+    WHERE players.id = matches.p1 OR players.id = matches.p2
+    GROUP BY id
+    ORDER BY num DESC;
 --CREATE VIEW win_num as
 --CREATE VIEW standings as
