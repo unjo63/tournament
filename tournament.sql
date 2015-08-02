@@ -11,10 +11,15 @@ CREATE TABLE players ( pname TEXT, id SERIAL );
 CREATE TABLE matches ( p1 SERIAL, p2 SERIAL, winner SERIAL );
 
 CREATE VIEW match_count AS
-  SELECT id, COUNT(players.id) AS num
+  SELECT id, COUNT(players.id) AS games
     FROM players, matches
     WHERE players.id = matches.p1 OR players.id = matches.p2
     GROUP BY id
-    ORDER BY num DESC;
---CREATE VIEW win_num as
+    ORDER BY games DESC;
+CREATE VIEW win_count AS
+  SELECT id, COUNT(matches.winner) AS wins
+  FROM matches, players
+  WHERE players.id = matches.winner
+  GROUP BY id
+  ORDER BY wins DESC;
 --CREATE VIEW standings as
