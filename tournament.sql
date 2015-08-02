@@ -6,4 +6,6 @@
 -- You can write comments in this file by starting them with two dashes, like
 -- these lines here.
 
-
+--create table players, which has 2 column.
+CREATE TABLE players ( pname TEXT, id SERIAL );
+CREATE TABLE matches ( p1 SERIAL, p2 SERIAL, winner SERIAL );
