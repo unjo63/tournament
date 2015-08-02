@@ -30,7 +30,8 @@ def countPlayers():
     """Returns the number of players currently registered."""
     DB = psycopg2.connect("dbname=tournament")
     c = DB.cursor()
-    c.execute("SELECT count (*) as pnum from players")
+    c.execute("SELECT count (*) from players")
+    return c.fetchall()
     DB.close()
 
 def registerPlayer(name):
@@ -42,6 +43,12 @@ def registerPlayer(name):
     Args:
       name: the player's full name (need not be unique).
     """
+    DB = psycopg2.connect("dbname=tournament")
+    c = DB.cursor()
+    c.execute("insert into players values (name)")
+    DB.commit()
+    return c.fetchall()
+    DB.close()
 
 
 def playerStandings():
