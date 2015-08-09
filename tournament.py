@@ -18,7 +18,6 @@ def deleteMatches():
     c = DB.cursor()
     c.execute("DELETE FROM matches")
     DB.commit()
-    print "match deleted"
     DB.close()
 
 def deletePlayers():
@@ -27,7 +26,6 @@ def deletePlayers():
     c = DB.cursor()
     c.execute("DELETE FROM players")
     DB.commit()
-    print"player deleted"
     DB.close()
 
 def countPlayers():
@@ -51,7 +49,7 @@ def registerPlayer(name):
     """
     DB = psycopg2.connect("dbname=tournament")
     c = DB.cursor()
-    c.execute("insert into players(pname) values (%s)", ("name",))
+    c.execute("insert into players(name) values (%s)", (name,))
     DB.commit()
     DB.close()
 
@@ -69,15 +67,25 @@ def playerStandings():
         wins: the number of matches the player has won
         matches: the number of matches the player has played
     """
+    """winer:  the id number of the player who won
+      loser:  the id number of the player who lost
+    """
+    DB = psycopg2.connect("dbname=tournament")
+    c = DB.cursor()
+    c.execute("select * from standings")
+    result = c.fetchall()
+    return result
+    DB.close()
+
 
 
 def reportMatch(winner, loser):
-    """Records the outcome of a single match between two players.
-
-    Args:
-      winner:  the id number of the player who won
-      loser:  the id number of the player who lost
-    """
+    """Adds two IDs to a row in the matches table"""
+    DB = psycopg2.connect("dbname=tournament")
+    c = DB.cursor()
+    c.execute("insert into matches(winner, loser) values (%s, %s)", (winner, loser,))
+    DB.commit()
+    DB.close()
  
  
 def swissPairings():
@@ -86,6 +94,7 @@ def swissPairings():
     Assuming that there are an even number of players registered, each player
     appears exactly once in the pairings.  Each player is paired with another
     player with an equal or nearly-equal win record, that is, a player adjacent
+
     to him or her in the standings.
   
     Returns:
@@ -95,5 +104,18 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
+
+    DB = psycopg2.connect("dbname=tournament")
+    c = DB.cursor()
+    PS = playerStandings()
+    row = []
+    for i in range(len(PS) - 1):
+        if i % 2 == 0:
+            row.append((PS[i][0],
+                        PS[i][1],
+                        PS[i + 1][0],
+                        PS[i + 1][1]))
+    return row
+    DB.close()
 
 
