@@ -6,14 +6,12 @@ import psycopg2
 
 def connect():
     """Connect to the PostgreSQL database.  Returns a database connection."""
-    # used to see if we are actually calling this function properly
-    print "connected!"
     return psycopg2.connect("dbname=tournament")
 
 
 def deleteMatches():
     """Remove all the match records from the database."""
-    DB = psycopg2.connect("dbname=tournament")
+    DB = connect()
     c = DB.cursor()
     c.execute("DELETE FROM matches")
     DB.commit()
@@ -22,7 +20,7 @@ def deleteMatches():
 
 def deletePlayers():
     """Remove all the player records from the database."""
-    DB = psycopg2.connect("dbname=tournament")
+    DB = connect()
     c = DB.cursor()
     c.execute("DELETE FROM players")
     DB.commit()
@@ -31,7 +29,7 @@ def deletePlayers():
 
 def countPlayers():
     """Returns the number of players currently registered."""
-    DB = psycopg2.connect("dbname=tournament")
+    DB = connect()
     c = DB.cursor()
     c.execute("SELECT count (*) from players")
     result = c.fetchall()
@@ -49,7 +47,7 @@ def registerPlayer(name):
     Args:
       name: the player's full name (need not be unique).
     """
-    DB = psycopg2.connect("dbname=tournament")
+    DB = connect()
     c = DB.cursor()
     c.execute("insert into players(name) values (%s)", (name,))
     DB.commit()
@@ -72,7 +70,7 @@ def playerStandings():
     """winer:  the id number of the player who won
        loser:  the id number of the player who lost
     """
-    DB = psycopg2.connect("dbname=tournament")
+    DB = connect()
     c = DB.cursor()
     c.execute("select * from standings")
     result = c.fetchall()
@@ -83,7 +81,7 @@ def playerStandings():
 def reportMatch(winner, loser):
     """Adds two IDs to a row in the matches table.
        First id is winner and second id is loser in a row."""
-    DB = psycopg2.connect("dbname=tournament")
+    DB = connect()
     c = DB.cursor()
     c.execute("insert into matches(winner, loser) values (%s, %s)",
               (winner, loser,))
