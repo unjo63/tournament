@@ -16,5 +16,5 @@ This project has two parts: defining the database schema (SQL table definitions)
 2. Use the create database command in psql to create the database. Use the name tournament for your database.
 3. Then you can connect psql to tournament database and create tables. When creat tables you can use the command \i tournament.sql to import the whole file into psql at once.
 
-# Getting Started
+# Usage
 Use the python tournament_test.py command.
