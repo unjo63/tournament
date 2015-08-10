@@ -9,8 +9,8 @@ This project has two parts: defining the database schema (SQL table definitions)
 
 # Install
 [Python2.7.10][] and [postgreSQL9.4.4][] is required on your computer.  
-[Python2]: https://www.python.org/downloads/  
-[postgreSQL]: http://www.postgresql.org/download/
+[Python2.7.10]: https://www.python.org/downloads/  
+[postgreSQL9.4.4]: http://www.postgresql.org/download/
 
 1. Copy tournament.py, tournament_test.py, tournament.sql in one folder.
 2. Use the create database command in psql to create the database. Use the name tournament for your database.
