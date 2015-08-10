@@ -8,7 +8,7 @@ and each player should be paired with another player with the same number of win
 This project has two parts: defining the database schema (SQL table definitions), and writing the code that will use it.
 
 # Install
-[Python2][] and [postgreSQL][] is required on your computer.  
+[Python2.7.10][] and [postgreSQL9.4.4][] is required on your computer.  
 [Python2]: https://www.python.org/downloads/  
 [postgreSQL]: http://www.postgresql.org/download/
 
