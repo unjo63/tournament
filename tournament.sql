@@ -6,12 +6,23 @@
 -- You can write comments in this file by starting them with two dashes, like
 -- these lines here.
 
+--set up the tournament database.
+DROP DATABASE IF EXISTS tournament;
+CREATE DATABASE tournament;
+\c tournament
+
 --create table players, which has 2 column.
-CREATE TABLE players(name TEXT, id SERIAL primary key);
+CREATE TABLE players(name TEXT, id SERIAL PRIMARY KEY);
 
 --create table matches, which has 2 column.
-CREATE TABLE matches(winner SERIAL, loser SERIAL,
-                        PRIMARY KEY(winner,loser));
+--CREATE TABLE matches(winner SERIAL, loser SERIAL,
+--                        PRIMARY KEY(winner,loser));
+CREATE TABLE matches(
+   match_id SERIAL PRIMARY KEY,
+   winner INTEGER REFERENCES players(id),
+   loser INTEGER REFERENCES players(id)
+   CHECK (winner <> loser)
+);
 
 --create view match_count, which has 2 column player id
 --and his or her match count.
