@@ -89,6 +89,8 @@ def reportMatch(winner, loser):
     db.close()
 
 
+
+
 def swissPairings():
     """Returns a list of pairs of players for the next round of a match.
 
@@ -105,14 +107,8 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
-    db, cursor = connect()
     PS = playerStandings()
     row = []
-    count = countPlayers()
-    if count % 2 != 0:
-         raise ValueError(
-            "The number of Player is odd, you must add players as even number.")
-
     for i in range(len(PS) - 1):
         if i % 2 == 0:
             row.append((PS[i][0],
@@ -120,4 +116,3 @@ def swissPairings():
                         PS[i + 1][0],
                         PS[i + 1][1]))
     return row
-    db.close()
