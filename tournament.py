@@ -34,10 +34,10 @@ def countPlayers():
     db, cursor = connect()
     """Returns the number of players currently registered."""
     cursor.execute("SELECT count (*) from players")
-    result = cursor.fetchall()
+    result = cursor.fetchone()[0]
     # print the count result.
     # print "count players is returning: {}".format(result[0][0])
-    return result[0][0]
+    return result
     db.close()
 
 
@@ -105,9 +105,14 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
-
+    db, cursor = connect()
     PS = playerStandings()
     row = []
+    count = countPlayers()
+    if count % 2 != 0:
+         raise ValueError(
+            "The number of Player is odd, you must add players as even number.")
+
     for i in range(len(PS) - 1):
         if i % 2 == 0:
             row.append((PS[i][0],
@@ -115,3 +120,4 @@ def swissPairings():
                         PS[i + 1][0],
                         PS[i + 1][1]))
     return row
+    db.close()

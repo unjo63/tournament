@@ -14,8 +14,8 @@ This project has two parts: defining the database schema (SQL table definitions)
 [psycopg2.6.1]: http://initd.org/psycopg/download/
 
 1. Copy tournament.py, tournament_test.py, tournament.sql in one folder.
-2. Use the create database command in psql to create the database. Use the name tournament for your database.
-3. Then you can connect psql to tournament database and create tables. When creat tables you can use the command \i tournament.sql to import the whole file into psql at once.
+2. Use the database setup command (psql -f tournament.sql).
+3. Then you can connect psql to tournament database.
 
 # Usage
 Use the python tournament_test.py command.
