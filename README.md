@@ -15,4 +15,4 @@ This project has two parts: defining the database schema (SQL table definitions)
 2. Use the database setup command `psql -f tournament.sql`.
 
 # Usage
-Use the command `python tournament_test.py`.
+Use the test runs command `python tournament_test.py`.
